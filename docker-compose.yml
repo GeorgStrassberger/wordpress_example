@@ -7,11 +7,8 @@ services:
         ports:
          - 8080:80
         restart: always
-        environment:
-            WORDPRESS_DB_HOST: mariadb:3306
-            WORDPRESS_DB_NAME: wordpress
-            WORDPRESS_DB_USER: wp_user
-            WORDPRESS_DB_PASSWORD: wp_pass
+        env_file:
+         - .env
         volumes:
             - wordpress_data:/var/www/html
         networks:
@@ -21,11 +18,8 @@ services:
         image: mariadb:11
         container_name: wordpress_db
         restart: always
-        environment:
-            MYSQL_DATABASE: wordpress
-            MYSQL_USER: wp_user
-            MYSQL_PASSWORD: wp_pass
-            MYSQL_ROOT_PASSWORD: root_pass
+        env_file:
+         - .env
         volumes:
          - mariadb_data:/var/lib/mysql
         networks:
