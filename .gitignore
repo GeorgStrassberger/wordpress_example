@@ -20,6 +20,9 @@
 # IDE
 .idea/
 
+# Environment files
+.env
+
 # Configuration
 wp-config.php
 
