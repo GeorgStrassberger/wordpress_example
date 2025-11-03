@@ -1,0 +1,43 @@
+services:
+    wordpress:
+        image: wordpress:6.5
+        container_name: wordpress_app
+        depends_on:
+         - mariadb
+        ports:
+         - 8080:80
+        restart: always
+        env_file:
+         - .env
+        volumes:
+            - wordpress_data:/var/www/html
+        networks:
+         - wordpress_network
+
+    mariadb:
+        image: mariadb:11
+        container_name: wordpress_db
+        restart: always
+        env_file:
+         - .env
+        volumes:
+         - mariadb_data:/var/lib/mysql
+        networks:
+         - wordpress_network
+    
+    adminer:
+        image: adminer:4
+        container_name: wordpress_adminer
+        restart: always
+        ports:
+         - 8081:8080
+        networks:
+         - wordpress_network
+
+volumes:
+    mariadb_data:
+    wordpress_data:
+
+networks:
+    wordpress_network:
+        driver: bridge
